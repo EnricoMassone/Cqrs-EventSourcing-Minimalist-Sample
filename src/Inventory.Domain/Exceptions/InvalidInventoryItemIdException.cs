@@ -1,17 +1,17 @@
 ﻿namespace Inventory.Domain.Exceptions
 {
-  public class InvalidInventoryIdException : Exception
+  public class InvalidInventoryItemIdException : Exception
   {
-    public InvalidInventoryIdException()
+    public InvalidInventoryItemIdException()
     {
     }
 
-    public InvalidInventoryIdException(
+    public InvalidInventoryItemIdException(
       string message) : base(message)
     {
     }
 
-    public InvalidInventoryIdException(
+    public InvalidInventoryItemIdException(
       string message,
       Exception innerException) : base(message, innerException)
     {
