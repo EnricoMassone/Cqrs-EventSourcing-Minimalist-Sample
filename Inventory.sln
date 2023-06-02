@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventory.Domain", "src\Inventory.Domain\Inventory.Domain.csproj", "{18420F24-ED73-46F6-AEE9-1B59C22F9367}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventory.Domain.UnitTests", "test\Inventory.Domain.UnitTests\Inventory.Domain.UnitTests.csproj", "{361EBE09-45A2-41E3-B3D4-E30AAD864B54}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,12 +28,17 @@ Global
 		{18420F24-ED73-46F6-AEE9-1B59C22F9367}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18420F24-ED73-46F6-AEE9-1B59C22F9367}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18420F24-ED73-46F6-AEE9-1B59C22F9367}.Release|Any CPU.Build.0 = Release|Any CPU
+		{361EBE09-45A2-41E3-B3D4-E30AAD864B54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{361EBE09-45A2-41E3-B3D4-E30AAD864B54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{361EBE09-45A2-41E3-B3D4-E30AAD864B54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{361EBE09-45A2-41E3-B3D4-E30AAD864B54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{18420F24-ED73-46F6-AEE9-1B59C22F9367} = {2466B634-8520-4BBC-9DEB-FBD872F824B0}
+		{361EBE09-45A2-41E3-B3D4-E30AAD864B54} = {AE08B41E-8D68-4A1C-9EB7-2D3337402686}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {341437AD-CD70-4848-8D09-5E9B2806B5E4}
