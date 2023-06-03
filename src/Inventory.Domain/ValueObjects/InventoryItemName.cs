@@ -17,13 +17,15 @@ namespace Inventory.Domain.ValueObjects
         throw new ArgumentNullException(nameof(value));
       }
 
-      var isValid = s_validationRegex.IsMatch(value);
-      if (!isValid)
+      if (!IsValidName(value))
       {
         throw NewInvalidInventoryItemNameException(value);
       }
 
       return new InventoryItemName(value);
+
+      static bool IsValidName(string value) =>
+        s_validationRegex.IsMatch(value);
 
       static InvalidInventoryItemNameException NewInvalidInventoryItemNameException(string value)
       {

@@ -161,5 +161,32 @@ namespace Inventory.Domain.UnitTests.ValueObjects
       Assert.That(result, Is.Not.Null);
       Assert.That(result.Value, Is.EqualTo(value));
     }
+
+    [Test]
+    public void Should_Be_Possible_To_Implicitly_Convert_From_InventoryItemName_To_String()
+    {
+      // ARRANGE
+      var target = InventoryItemName.FromString("Special Bike");
+
+      // ACT
+      string result = target;
+
+      // ASSERT
+      Assert.That(result, Is.EqualTo("Special Bike"));
+    }
+
+    [Test]
+    public void InventoryItemName_Should_Have_Value_Equality()
+    {
+      // ARRANGE
+      var name1 = InventoryItemName.FromString("Something very special");
+      var name2 = InventoryItemName.FromString("Something very special");
+
+      // ACT
+      var result = name1.Equals(name2);
+
+      // ASSERT
+      Assert.That(result, Is.True);
+    }
   }
 }
