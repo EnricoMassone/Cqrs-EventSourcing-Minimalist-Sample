@@ -28,6 +28,27 @@
       return new Quantity(this.Value + other.Value);
     }
 
+    public Quantity Remove(Quantity other)
+    {
+      if (other is null)
+      {
+        throw new ArgumentNullException(nameof(other));
+      }
+
+      if (this.Value < other.Value)
+      {
+        throw NewInvalidOperationException();
+      }
+
+      return new Quantity(this.Value - other.Value);
+
+      InvalidOperationException NewInvalidOperationException()
+      {
+        var message = $"Cannot remove quantity of {other.Value} from quantity of {this.Value}";
+        return new InvalidOperationException(message);
+      }
+    }
+
     #region Interface implementations
 
     public int CompareTo(Quantity? other)
