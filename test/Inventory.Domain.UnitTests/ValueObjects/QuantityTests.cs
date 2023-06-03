@@ -82,6 +82,26 @@ namespace Inventory.Domain.UnitTests.ValueObjects
       Assert.That(result, Is.True);
     }
 
+    #region IComparable<T> tests
+
+    /*
+     * See https://learn.microsoft.com/en-us/dotnet/api/system.icomparable-1.compareto?view=net-7.0#notes-to-implementers 
+     */
+
+    [Test]
+    public void Comparison_Between_Quantity_Instances_Should_Be_Based_On_Value_Property()
+    {
+      // ACT
+      var result1 = Quantity.FromInteger(11).CompareTo(Quantity.FromInteger(11));
+      var result2 = Quantity.FromInteger(13).CompareTo(Quantity.FromInteger(5));
+      var result3 = Quantity.FromInteger(2).CompareTo(Quantity.FromInteger(46));
+
+      // ASSERT
+      Assert.That(result1, Is.EqualTo(0));
+      Assert.That(result2, Is.GreaterThan(0));
+      Assert.That(result3, Is.LessThan(0));
+    }
+
     [Test]
     public void Quantity_Instance_Should_Be_Greater_Than_Null_Reference()
     {
@@ -178,5 +198,7 @@ namespace Inventory.Domain.UnitTests.ValueObjects
       Assert.That(result1 * result3, Is.GreaterThan(0));
       Assert.That(result2 * result3, Is.GreaterThan(0));
     }
+
+    #endregion
   }
 }
