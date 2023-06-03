@@ -17,5 +17,8 @@ namespace Inventory.Domain.ValueObjects
     public Guid Value { get; }
 
     internal InventoryItemId(Guid value) => this.Value = value;
+
+    public static implicit operator Guid(InventoryItemId inventoryItemId) =>
+      inventoryItemId.Value;
   }
 }
