@@ -1,4 +1,5 @@
-﻿using Inventory.Domain.ValueObjects;
+﻿using AutoFixture.NUnit3;
+using Inventory.Domain.ValueObjects;
 
 namespace Inventory.Domain.UnitTests.ValueObjects
 {
@@ -53,6 +54,35 @@ namespace Inventory.Domain.UnitTests.ValueObjects
 
       // ASSERT
       Assert.That(result.Value, Is.EqualTo(13));
+    }
+
+    [Test]
+    [AutoData]
+    public void Should_Be_Possible_To_Implicitly_Convert_From_Quantity_To_Integer()
+    {
+      // ARRANGE
+      var target = Quantity.FromInteger(22);
+
+      // ACT
+      int result = target;
+
+      // ASSERT
+      Assert.That(result, Is.EqualTo(22));
+    }
+
+    [Test]
+    [AutoData]
+    public void Quantity_Should_Have_Value_Equality()
+    {
+      // ARRANGE
+      var quantity1 = Quantity.FromInteger(22);
+      var quantity2 = Quantity.FromInteger(22);
+
+      // ACT
+      var result = quantity1.Equals(quantity2);
+
+      // ASSERT
+      Assert.That(result, Is.True);
     }
   }
 }
