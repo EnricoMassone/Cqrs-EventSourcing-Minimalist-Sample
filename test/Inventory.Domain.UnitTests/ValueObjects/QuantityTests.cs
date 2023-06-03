@@ -21,38 +21,19 @@ namespace Inventory.Domain.UnitTests.ValueObjects
 
       Assert.That(
         exception.Message,
-        Contains.Substring("-3 is not a valid quantity. Quantity must be positive integer number.")
+        Contains.Substring("-3 is not a valid quantity. Quantity must be non negative integer number.")
       );
     }
 
-    [Test]
-    public void FromInteger_Throws_ArgumentOutOfRangeException_When_Value_Equals_Zero()
+    [TestCase(13)]
+    [TestCase(0)]
+    public void FromInteger_Creates_New_Instance_Of_Quantity_From_Non_Negative_Integer_Value(int value)
     {
       // ACT
-      var exception = Assert.Throws<ArgumentOutOfRangeException>(
-        () => Quantity.FromInteger(0)
-      );
+      var result = Quantity.FromInteger(value);
 
       // ASSERT
-      Assert.That(
-        exception.ParamName,
-        Is.EqualTo("value")
-      );
-
-      Assert.That(
-        exception.Message,
-        Contains.Substring("0 is not a valid quantity. Quantity must be positive integer number.")
-      );
-    }
-
-    [Test]
-    public void FromInteger_Creates_New_Instance_Of_Quantity_From_Positive_Integer_Value()
-    {
-      // ACT
-      var result = Quantity.FromInteger(13);
-
-      // ASSERT
-      Assert.That(result.Value, Is.EqualTo(13));
+      Assert.That(result.Value, Is.EqualTo(value));
     }
 
     [Test]
@@ -80,6 +61,37 @@ namespace Inventory.Domain.UnitTests.ValueObjects
 
       // ASSERT
       Assert.That(result, Is.True);
+    }
+
+    [Test]
+    public void Add_Throws_ArgumentNullException_When_Other_Is_Null()
+    {
+      // ARRANGE
+      var target = Quantity.FromInteger(4);
+
+      // ACT
+      var exception = Assert.Throws<ArgumentNullException>(
+        () => target.Add(null!)
+      );
+
+      // ASSERT
+      Assert.That(exception.ParamName, Is.EqualTo("other"));
+    }
+
+    [Test]
+    public void Add_Creates_New_Instance_Of_Quantity_By_Summing_Up_Values_Of_Current_Instance_And_Other()
+    {
+      // ARRANGE
+      var target = Quantity.FromInteger(4);
+      var other = Quantity.FromInteger(12);
+
+      // ACT
+      var result = target.Add(other);
+
+      // ASSERT
+      Assert.That(result, Is.Not.Null);
+      Assert.That(result, Is.Not.SameAs(target));
+      Assert.That(result.Value, Is.EqualTo(16));
     }
 
     #region IComparable<T> tests

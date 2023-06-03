@@ -6,9 +6,20 @@ namespace Inventory.Domain.Entities
 {
   public sealed class InventoryItem : AggregateRoot<InventoryItemId>
   {
+    private static readonly Quantity s_defaultInitialQuantity = Quantity.FromInteger(1);
+    private static readonly Quantity s_defaultMaximumAllowedQuantity = Quantity.FromInteger(5);
+
     public bool IsActive { get; private set; }
     public Quantity CurrentQuantity { get; private set; }
     public Quantity MaximumAllowedQuantity { get; private set; }
+
+    public InventoryItem(
+      InventoryItemId id,
+      Quantity? currentQuantity = default,
+      Quantity? maximumAllowedQuantity = default)
+    {
+      throw new NotImplementedException();
+    }
 
     protected override void ApplyToState(object @event)
     {

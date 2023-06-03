@@ -4,11 +4,11 @@
   {
     public static Quantity FromInteger(int value)
     {
-      if (value <= 0)
+      if (value < 0)
       {
         throw new ArgumentOutOfRangeException(
           nameof(value),
-          $"{value} is not a valid quantity. Quantity must be positive integer number.");
+          $"{value} is not a valid quantity. Quantity must be non negative integer number.");
       }
 
       return new Quantity(value);
@@ -17,6 +17,16 @@
     public int Value { get; }
 
     internal Quantity(int value) => this.Value = value;
+
+    public Quantity Add(Quantity other)
+    {
+      if (other is null)
+      {
+        throw new ArgumentNullException(nameof(other));
+      }
+
+      return new Quantity(this.Value + other.Value);
+    }
 
     #region Interface implementations
 
