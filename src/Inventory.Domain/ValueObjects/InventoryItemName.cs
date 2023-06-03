@@ -20,10 +20,21 @@ namespace Inventory.Domain.ValueObjects
       var isValid = s_validationRegex.IsMatch(value);
       if (!isValid)
       {
-        throw new InvalidInventoryItemNameException($"'{value}' is not a valid inventory item name");
+        throw NewInvalidInventoryItemNameException();
       }
 
       return new InventoryItemName(value);
+
+      InvalidInventoryItemNameException NewInvalidInventoryItemNameException()
+      {
+        var printedValue = string.IsNullOrWhiteSpace(value) || value.StartsWith(' ') ?
+          $"'{value}'" :
+          value;
+
+        var message = $"{printedValue} is not a valid inventory item name";
+
+        return new InvalidInventoryItemNameException(message);
+      }
     }
 
     public string Value { get; }
