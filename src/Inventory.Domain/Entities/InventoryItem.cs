@@ -1,4 +1,5 @@
-﻿using Inventory.Domain.Framework;
+﻿using Inventory.Domain.Exceptions;
+using Inventory.Domain.Framework;
 using Inventory.Domain.ValueObjects;
 
 namespace Inventory.Domain.Entities
@@ -16,7 +17,24 @@ namespace Inventory.Domain.Entities
 
     protected override void EnsureValidState()
     {
-      throw new NotImplementedException();
+      var isValid = this.CurrentQuantity <= this.MaximumAllowedQuantity;
+
+      if (isValid)
+      {
+        return;
+      }
+
+      throw NewInvalidEntityStateException();
+
+      InvalidEntityStateException NewInvalidEntityStateException()
+      {
+        var message =
+          $"State change for entity of type {nameof(InventoryItemId)} with Id {this.Id} has been rejected. "
+          +
+          "Current quantity must be less than or equal to maximum allowed quantity.";
+
+        return new InvalidEntityStateException(message);
+      }
     }
   }
 }
