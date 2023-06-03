@@ -18,6 +18,8 @@
 
     internal Quantity(int value) => this.Value = value;
 
+    #region Interface implementations
+
     public int CompareTo(Quantity? other)
     {
       if (other == null)
@@ -29,6 +31,32 @@
       return this.Value.CompareTo(other.Value);
     }
 
+    #endregion
+
+    #region Operator overloads
+
     public static implicit operator int(Quantity quantity) => quantity.Value;
+
+    public static bool operator >(Quantity quantity1, Quantity quantity2)
+    {
+      return quantity1.CompareTo(quantity2) > 0;
+    }
+
+    public static bool operator <(Quantity quantity1, Quantity quantity2)
+    {
+      return quantity1.CompareTo(quantity2) < 0;
+    }
+
+    public static bool operator >=(Quantity quantity1, Quantity quantity2)
+    {
+      return quantity1.CompareTo(quantity2) >= 0;
+    }
+
+    public static bool operator <=(Quantity quantity1, Quantity quantity2)
+    {
+      return quantity1.CompareTo(quantity2) <= 0;
+    }
+
+    #endregion
   }
 }
