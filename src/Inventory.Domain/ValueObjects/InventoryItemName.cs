@@ -1,0 +1,36 @@
+﻿using Inventory.Domain.Exceptions;
+using System.Text.RegularExpressions;
+
+namespace Inventory.Domain.ValueObjects
+{
+  public sealed record InventoryItemName
+  {
+    private static readonly Regex s_validationRegex = new(
+      "^[a-zA-Z]{1}[a-zA-Z 0-9]{0,99}$",
+      RegexOptions.Compiled
+    );
+
+    public static InventoryItemName FromString(string value)
+    {
+      if (value is null)
+      {
+        throw new ArgumentNullException(nameof(value));
+      }
+
+      var isValid = s_validationRegex.IsMatch(value);
+      if (!isValid)
+      {
+        throw new InvalidInventoryItemNameException($"'{value}' is not a valid inventory item name");
+      }
+
+      return new InventoryItemName(value);
+    }
+
+    public string Value { get; }
+
+    internal InventoryItemName(string value) => this.Value = value;
+
+    public static implicit operator string(InventoryItemName inventoryItemName) =>
+      inventoryItemName.Value;
+  }
+}
