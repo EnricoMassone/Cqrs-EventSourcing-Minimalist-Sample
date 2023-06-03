@@ -264,12 +264,11 @@ namespace Inventory.Domain.UnitTests.ValueObjects
 
     #endregion
 
-    #region Inequality operators tests
+    #region Operator overloads tests
 
     [Test]
     public void GreaterThan_Operator_Compares_Instances_By_Value()
     {
-      // ACT
       // ACT
       var result1 = Quantity.FromInteger(11) > Quantity.FromInteger(11);
       var result2 = Quantity.FromInteger(13) > Quantity.FromInteger(5);
@@ -285,7 +284,6 @@ namespace Inventory.Domain.UnitTests.ValueObjects
     public void LessThan_Operator_Compares_Instances_By_Value()
     {
       // ACT
-      // ACT
       var result1 = Quantity.FromInteger(11) < Quantity.FromInteger(11);
       var result2 = Quantity.FromInteger(13) < Quantity.FromInteger(5);
       var result3 = Quantity.FromInteger(2) < Quantity.FromInteger(46);
@@ -299,7 +297,6 @@ namespace Inventory.Domain.UnitTests.ValueObjects
     [Test]
     public void GreaterThanOrEqualTo_Operator_Compares_Instances_By_Value()
     {
-      // ACT
       // ACT
       var result1 = Quantity.FromInteger(11) >= Quantity.FromInteger(11);
       var result2 = Quantity.FromInteger(13) >= Quantity.FromInteger(5);
@@ -315,7 +312,6 @@ namespace Inventory.Domain.UnitTests.ValueObjects
     public void LessThanOrEqualTo_Operator_Compares_Instances_By_Value()
     {
       // ACT
-      // ACT
       var result1 = Quantity.FromInteger(11) <= Quantity.FromInteger(11);
       var result2 = Quantity.FromInteger(13) <= Quantity.FromInteger(5);
       var result3 = Quantity.FromInteger(2) <= Quantity.FromInteger(46);
@@ -324,6 +320,26 @@ namespace Inventory.Domain.UnitTests.ValueObjects
       Assert.That(result1, Is.True);
       Assert.That(result2, Is.False);
       Assert.That(result3, Is.True);
+    }
+
+    [Test]
+    public void Addition_Operator_Performs_Sum_Of_Provided_Instances()
+    {
+      // ACT
+      var result = Quantity.FromInteger(13) + Quantity.FromInteger(9);
+
+      // ASSERT
+      Assert.That(result.Value, Is.EqualTo(22));
+    }
+
+    [Test]
+    public void Subtraction_Operator_Performs_Subtraction_Of_Provided_Instances()
+    {
+      // ACT
+      var result = Quantity.FromInteger(13) - Quantity.FromInteger(9);
+
+      // ASSERT
+      Assert.That(result.Value, Is.EqualTo(4));
     }
 
     #endregion

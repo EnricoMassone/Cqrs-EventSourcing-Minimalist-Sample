@@ -88,6 +88,16 @@
       return quantity1.CompareTo(quantity2) <= 0;
     }
 
+    public static Quantity operator +(Quantity quantity1, Quantity quantity2)
+    {
+      return quantity1.Add(quantity2);
+    }
+
+    public static Quantity operator -(Quantity quantity1, Quantity quantity2)
+    {
+      return quantity1.Subtract(quantity2);
+    }
+
     #endregion
   }
 }
