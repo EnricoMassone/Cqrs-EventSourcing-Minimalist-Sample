@@ -28,7 +28,7 @@
       return new Quantity(this.Value + other.Value);
     }
 
-    public Quantity Remove(Quantity other)
+    public Quantity Subtract(Quantity other)
     {
       if (other is null)
       {
@@ -44,7 +44,7 @@
 
       InvalidOperationException NewInvalidOperationException()
       {
-        var message = $"Cannot remove quantity of {other.Value} from quantity of {this.Value}";
+        var message = $"Cannot subtract quantity of {other.Value} from quantity of {this.Value}";
         return new InvalidOperationException(message);
       }
     }

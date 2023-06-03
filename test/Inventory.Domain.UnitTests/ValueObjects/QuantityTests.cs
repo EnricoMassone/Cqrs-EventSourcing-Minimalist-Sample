@@ -79,7 +79,7 @@ namespace Inventory.Domain.UnitTests.ValueObjects
     }
 
     [Test]
-    public void Add_Creates_New_Instance_Of_Quantity_By_Summing_Up_Values_Of_Current_Instance_And_Other()
+    public void Add_Creates_New_Instance_Of_Quantity_By_Summing_Values_Of_Current_Instance_And_Other()
     {
       // ARRANGE
       var target = Quantity.FromInteger(4);
@@ -92,6 +92,57 @@ namespace Inventory.Domain.UnitTests.ValueObjects
       Assert.That(result, Is.Not.Null);
       Assert.That(result, Is.Not.SameAs(target));
       Assert.That(result.Value, Is.EqualTo(16));
+    }
+
+    [Test]
+    public void Subtract_Throws_ArgumentNullException_When_Other_Is_Null()
+    {
+      // ARRANGE
+      var target = Quantity.FromInteger(4);
+
+      // ACT
+      var exception = Assert.Throws<ArgumentNullException>(
+        () => target.Subtract(null!)
+      );
+
+      // ASSERT
+      Assert.That(exception.ParamName, Is.EqualTo("other"));
+    }
+
+    [TestCase(13, 5, 8)]
+    [TestCase(13, 13, 0)]
+    public void Subtract_Creates_New_Instance_Of_Quantity_By_Subtracting_Values_Of_Current_Instance_And_Other(
+      int currentValue,
+      int otherValue,
+      int resultValue)
+    {
+      // ARRANGE
+      var target = Quantity.FromInteger(currentValue);
+      var other = Quantity.FromInteger(otherValue);
+
+      // ACT
+      var result = target.Subtract(other);
+
+      // ASSERT
+      Assert.That(result, Is.Not.Null);
+      Assert.That(result, Is.Not.SameAs(target));
+      Assert.That(result.Value, Is.EqualTo(resultValue));
+    }
+
+    [Test]
+    public void Subtract_Throws_InvalidOperationException_When_Current_Instance_Value_Is_Less_Than_Other_Instance_Value()
+    {
+      // ARRANGE
+      var target = Quantity.FromInteger(10);
+      var other = Quantity.FromInteger(20);
+
+      // ACT
+      var exception = Assert.Throws<InvalidOperationException>(
+        () => target.Subtract(other)
+      );
+
+      // ASSERT
+      Assert.That(exception.Message, Is.EqualTo("Cannot subtract quantity of 20 from quantity of 10"));
     }
 
     #region IComparable<T> tests
