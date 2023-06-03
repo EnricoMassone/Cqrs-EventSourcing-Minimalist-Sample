@@ -10,22 +10,48 @@ namespace Inventory.Domain.Entities
     private static readonly Quantity s_defaultMaximumAllowedQuantity = Quantity.FromInteger(5);
 
     public bool IsActive { get; private set; }
-    public string Name { get; private set; }
+    public InventoryItemName Name { get; private set; }
     public Quantity CurrentQuantity { get; private set; }
     public Quantity MaximumAllowedQuantity { get; private set; }
 
     public InventoryItem(
       InventoryItemId id,
-      string name,
+      InventoryItemName name,
       Quantity? currentQuantity = default,
       Quantity? maximumAllowedQuantity = default)
     {
-      throw new NotImplementedException();
+      if (id is null)
+      {
+        throw new ArgumentNullException(nameof(id));
+      }
+
+      if (name is null)
+      {
+        throw new ArgumentNullException(nameof(name));
+      }
+
+      var @event = new Events.InventoryItemCreated
+      {
+        Id = id,
+        Name = name,
+        CurrentQuantity = currentQuantity ?? s_defaultInitialQuantity,
+        MaximumAllowedQuantity = maximumAllowedQuantity ?? s_defaultMaximumAllowedQuantity,
+      };
+      this.RaiseEvent(@event);
     }
 
     protected override void ApplyToState(object @event)
     {
-      throw new NotImplementedException();
+      switch (@event)
+      {
+        case Events.InventoryItemCreated e:
+          this.Id = new InventoryItemId(e.Id);
+          this.IsActive = true;
+          this.Name = new InventoryItemName(e.Name);
+          this.CurrentQuantity = new Quantity(e.CurrentQuantity);
+          this.MaximumAllowedQuantity = new Quantity(e.MaximumAllowedQuantity);
+          break;
+      }
     }
 
     protected override void EnsureValidState()
@@ -44,9 +70,7 @@ namespace Inventory.Domain.Entities
         var message =
           $"State change for entity of type {nameof(InventoryItemId)} with Id {this.Id} has been rejected. "
           +
-          "Current quantity must be less than or equal to maximum allowed quantity. "
-          +
-          "Inventory item name cannot be null or white space.";
+          "Current quantity must be less than or equal to maximum allowed quantity.";
 
         return new InvalidEntityStateException(message);
       }
