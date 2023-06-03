@@ -200,5 +200,69 @@ namespace Inventory.Domain.UnitTests.ValueObjects
     }
 
     #endregion
+
+    #region Inequality operators tests
+
+    [Test]
+    public void GreaterThan_Operator_Compares_Instances_By_Value()
+    {
+      // ACT
+      // ACT
+      var result1 = Quantity.FromInteger(11) > Quantity.FromInteger(11);
+      var result2 = Quantity.FromInteger(13) > Quantity.FromInteger(5);
+      var result3 = Quantity.FromInteger(2) > Quantity.FromInteger(46);
+
+      // ASSERT
+      Assert.That(result1, Is.False);
+      Assert.That(result2, Is.True);
+      Assert.That(result3, Is.False);
+    }
+
+    [Test]
+    public void LessThan_Operator_Compares_Instances_By_Value()
+    {
+      // ACT
+      // ACT
+      var result1 = Quantity.FromInteger(11) < Quantity.FromInteger(11);
+      var result2 = Quantity.FromInteger(13) < Quantity.FromInteger(5);
+      var result3 = Quantity.FromInteger(2) < Quantity.FromInteger(46);
+
+      // ASSERT
+      Assert.That(result1, Is.False);
+      Assert.That(result2, Is.False);
+      Assert.That(result3, Is.True);
+    }
+
+    [Test]
+    public void GreaterThanOrEqualTo_Operator_Compares_Instances_By_Value()
+    {
+      // ACT
+      // ACT
+      var result1 = Quantity.FromInteger(11) >= Quantity.FromInteger(11);
+      var result2 = Quantity.FromInteger(13) >= Quantity.FromInteger(5);
+      var result3 = Quantity.FromInteger(2) >= Quantity.FromInteger(46);
+
+      // ASSERT
+      Assert.That(result1, Is.True);
+      Assert.That(result2, Is.True);
+      Assert.That(result3, Is.False);
+    }
+
+    [Test]
+    public void LessThanOrEqualTo_Operator_Compares_Instances_By_Value()
+    {
+      // ACT
+      // ACT
+      var result1 = Quantity.FromInteger(11) <= Quantity.FromInteger(11);
+      var result2 = Quantity.FromInteger(13) <= Quantity.FromInteger(5);
+      var result3 = Quantity.FromInteger(2) <= Quantity.FromInteger(46);
+
+      // ASSERT
+      Assert.That(result1, Is.True);
+      Assert.That(result2, Is.False);
+      Assert.That(result3, Is.True);
+    }
+
+    #endregion
   }
 }
