@@ -26,7 +26,27 @@ namespace Inventory.Domain.UnitTests.ValueObjects
     }
 
     [Test]
-    public void FromInteger_Creates_New_Instance_Of_Quantity_From_Integer_Value()
+    public void FromInteger_Throws_ArgumentOutOfRangeException_When_Value_Equals_Zero()
+    {
+      // ACT
+      var exception = Assert.Throws<ArgumentOutOfRangeException>(
+        () => Quantity.FromInteger(0)
+      );
+
+      // ASSERT
+      Assert.That(
+        exception.ParamName,
+        Is.EqualTo("value")
+      );
+
+      Assert.That(
+        exception.Message,
+        Contains.Substring("0 is not a valid quantity. Quantity must be positive integer number.")
+      );
+    }
+
+    [Test]
+    public void FromInteger_Creates_New_Instance_Of_Quantity_From_Positive_Integer_Value()
     {
       // ACT
       var result = Quantity.FromInteger(13);
