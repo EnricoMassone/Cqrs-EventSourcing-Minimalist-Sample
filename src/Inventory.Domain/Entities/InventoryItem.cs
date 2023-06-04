@@ -70,7 +70,7 @@ namespace Inventory.Domain.Entities
       InvalidEntityStateException NewInvalidEntityStateException()
       {
         var message =
-          $"State change for entity of type {nameof(InventoryItemId)} with Id {this.Id} has been rejected. "
+          $"State change for entity of type {nameof(InventoryItem)} with Id {this.Id.Value} has been rejected. "
           +
           "Current quantity must be less than or equal to maximum allowed quantity.";
 
