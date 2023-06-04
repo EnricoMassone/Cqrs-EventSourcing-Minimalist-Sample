@@ -100,6 +100,22 @@ namespace Inventory.Domain.Entities
       this.RaiseEvent(@event);
     }
 
+    public void CheckIn(NonZeroQuantity amount)
+    {
+      if (amount is null)
+      {
+        throw new ArgumentNullException(nameof(amount));
+      }
+
+      var @event = new Events.ItemsCheckedInToInventory
+      {
+        InventoryItemId = this.Id,
+        Amount = amount
+      };
+
+      this.RaiseEvent(@event);
+    }
+
     protected override void ApplyToState(object @event)
     {
       switch (@event)
@@ -122,6 +138,10 @@ namespace Inventory.Domain.Entities
 
         case Events.InventoryItemMaximumAllowedQuantityChanged e:
           this.MaximumAllowedQuantity = new Quantity(e.NewMaximumAllowedQuantity);
+          break;
+
+        case Events.ItemsCheckedInToInventory e:
+          this.CurrentQuantity = new Quantity(this.CurrentQuantity.Value + e.Amount);
           break;
       }
     }
