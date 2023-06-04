@@ -30,6 +30,7 @@
     public sealed class ItemsCheckedInToInventory
     {
       public Guid InventoryItemId { get; set; }
+      public int Amount { get; set; }
     }
   }
 }
