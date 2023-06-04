@@ -26,5 +26,10 @@
       public Guid Id { get; set; }
       public int NewMaximumAllowedQuantity { get; set; }
     }
+
+    public sealed class ItemsCheckedInToInventory
+    {
+      public Guid InventoryItemId { get; set; }
+    }
   }
 }
