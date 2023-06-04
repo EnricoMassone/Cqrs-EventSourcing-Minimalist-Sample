@@ -1,6 +1,6 @@
 ﻿namespace Inventory.Domain.ValueObjects
 {
-  public sealed record Quantity : IComparable<Quantity>
+  public record Quantity : IComparable<Quantity>
   {
     public static Quantity FromInteger(int value)
     {
