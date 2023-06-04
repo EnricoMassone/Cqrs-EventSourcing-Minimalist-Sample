@@ -20,5 +20,11 @@
     {
       public Guid Id { get; set; }
     }
+
+    public sealed class InventoryItemMaximumAllowedQuantityChanged
+    {
+      public Guid Id { get; set; }
+      public int NewMaximumAllowedQuantity { get; set; }
+    }
   }
 }

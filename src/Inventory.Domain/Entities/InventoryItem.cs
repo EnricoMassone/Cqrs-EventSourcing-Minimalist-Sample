@@ -79,6 +79,27 @@ namespace Inventory.Domain.Entities
       this.RaiseEvent(@event);
     }
 
+    public void ChangeMaximumAllowedQuantity(Quantity newMaximumAllowedQuantity)
+    {
+      if (newMaximumAllowedQuantity is null)
+      {
+        throw new ArgumentNullException(nameof(newMaximumAllowedQuantity));
+      }
+
+      if (this.MaximumAllowedQuantity.Equals(newMaximumAllowedQuantity))
+      {
+        return;
+      }
+
+      var @event = new Events.InventoryItemMaximumAllowedQuantityChanged
+      {
+        Id = this.Id,
+        NewMaximumAllowedQuantity = newMaximumAllowedQuantity,
+      };
+
+      this.RaiseEvent(@event);
+    }
+
     protected override void ApplyToState(object @event)
     {
       switch (@event)
@@ -97,6 +118,10 @@ namespace Inventory.Domain.Entities
 
         case Events.InventoryItemDeactivated:
           this.IsActive = false;
+          break;
+
+        case Events.InventoryItemMaximumAllowedQuantityChanged e:
+          this.MaximumAllowedQuantity = new Quantity(e.NewMaximumAllowedQuantity);
           break;
       }
     }
