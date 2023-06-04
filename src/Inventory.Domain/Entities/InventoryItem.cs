@@ -64,6 +64,21 @@ namespace Inventory.Domain.Entities
       this.RaiseEvent(@event);
     }
 
+    public void Deactivate()
+    {
+      if (!this.IsActive)
+      {
+        return;
+      }
+
+      var @event = new Events.InventoryItemDeactivated
+      {
+        Id = this.Id
+      };
+
+      this.RaiseEvent(@event);
+    }
+
     protected override void ApplyToState(object @event)
     {
       switch (@event)
@@ -78,6 +93,10 @@ namespace Inventory.Domain.Entities
 
         case Events.InventoryItemNameChanged e:
           this.Name = new InventoryItemName(e.NewName);
+          break;
+
+        case Events.InventoryItemDeactivated:
+          this.IsActive = false;
           break;
       }
     }

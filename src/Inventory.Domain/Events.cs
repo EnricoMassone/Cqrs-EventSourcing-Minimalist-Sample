@@ -15,5 +15,10 @@
       public Guid Id { get; set; }
       public string NewName { get; set; } = string.Empty;
     }
+
+    public sealed class InventoryItemDeactivated
+    {
+      public Guid Id { get; set; }
+    }
   }
 }
