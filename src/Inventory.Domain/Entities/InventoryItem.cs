@@ -39,6 +39,28 @@ namespace Inventory.Domain.Entities
         CurrentQuantity = currentQuantity ?? s_defaultInitialQuantity,
         MaximumAllowedQuantity = maximumAllowedQuantity ?? s_defaultMaximumAllowedQuantity,
       };
+
+      this.RaiseEvent(@event);
+    }
+
+    public void ChangeName(InventoryItemName newName)
+    {
+      if (newName is null)
+      {
+        throw new ArgumentNullException(nameof(newName));
+      }
+
+      if (this.Name.Equals(newName))
+      {
+        return;
+      }
+
+      var @event = new Events.InventoryItemNameChanged
+      {
+        Id = this.Id,
+        NewName = newName,
+      };
+
       this.RaiseEvent(@event);
     }
 

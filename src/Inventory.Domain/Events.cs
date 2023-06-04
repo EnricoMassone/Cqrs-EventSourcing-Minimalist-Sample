@@ -9,5 +9,11 @@
       public int CurrentQuantity { get; set; }
       public int MaximumAllowedQuantity { get; set; }
     }
+
+    public sealed class InventoryItemNameChanged
+    {
+      public Guid Id { get; set; }
+      public string NewName { get; set; } = string.Empty;
+    }
   }
 }
