@@ -61,6 +61,7 @@ namespace Inventory.Domain.UnitTests.Entities
       Assert.That(result, Is.Not.Null);
       Assert.That(result.Id, Is.EqualTo(id));
       Assert.That(result.Name, Is.EqualTo(name));
+      Assert.That(result.IsActive, Is.True);
 
       var expectedCurrentQuantity = Quantity.FromInteger(1);
       Assert.That(result.CurrentQuantity, Is.EqualTo(expectedCurrentQuantity));
@@ -100,6 +101,7 @@ namespace Inventory.Domain.UnitTests.Entities
 
       Assert.That(result.Id, Is.EqualTo(id));
       Assert.That(result.Name, Is.EqualTo(name));
+      Assert.That(result.IsActive, Is.True);
       Assert.That(result.CurrentQuantity, Is.EqualTo(currentQuantity));
       Assert.That(result.MaximumAllowedQuantity, Is.EqualTo(maximumAllowedQuantity));
 

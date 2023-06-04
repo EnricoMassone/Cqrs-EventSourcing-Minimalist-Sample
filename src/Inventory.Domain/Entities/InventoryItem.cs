@@ -75,6 +75,10 @@ namespace Inventory.Domain.Entities
           this.CurrentQuantity = new Quantity(e.CurrentQuantity);
           this.MaximumAllowedQuantity = new Quantity(e.MaximumAllowedQuantity);
           break;
+
+        case Events.InventoryItemNameChanged e:
+          this.Name = new InventoryItemName(e.NewName);
+          break;
       }
     }
 
