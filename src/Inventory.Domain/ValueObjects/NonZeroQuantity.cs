@@ -1,6 +1,4 @@
-﻿using Inventory.Domain.Exceptions;
-
-namespace Inventory.Domain.ValueObjects
+﻿namespace Inventory.Domain.ValueObjects
 {
   public sealed record NonZeroQuantity : Quantity
   {
@@ -12,7 +10,9 @@ namespace Inventory.Domain.ValueObjects
     {
       if (this.Value == 0)
       {
-        throw new InvalidQuantityException($"An instance of {nameof(NonZeroQuantity)} must represent a positive (non zero) quantity");
+        throw new ArgumentOutOfRangeException(
+          "value",
+          $"Value of 0 is invalid for an instance of {nameof(NonZeroQuantity)}. Value must be positive integer number.");
       }
     }
 
